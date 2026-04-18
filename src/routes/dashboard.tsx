@@ -78,7 +78,7 @@ function Dashboard() {
             <li>Gestão de Municípios e Usuários (acesso restrito)</li>
           </ul>
           {roles.length === 0 && (
-            <p className="mt-4 rounded-md bg-amber-50 p-3 text-amber-900 dark:bg-amber-950 dark:text-amber-100">
+            <p className="mt-4 rounded-md border border-border bg-muted p-3 text-foreground">
               Sua conta ainda não tem permissões atribuídas. Solicite a um administrador.
             </p>
           )}
