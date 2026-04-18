@@ -567,7 +567,7 @@ function DocsDialog({
   onClose: () => void;
 }) {
   const folder = `${mulher.municipio_id}/${mulher.id}`;
-  const [files, setFiles] = useState<{ name: string; size: number; created_at?: string }[]>([]);
+  const [files, setFiles] = useState<{ name: string; size: number; created_at?: string | null }[]>([]);
   const [loading, setLoading] = useState(true);
   const [uploading, setUploading] = useState(false);
 
