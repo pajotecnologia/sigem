@@ -76,9 +76,14 @@ function CasosModule() {
   const [deleteId, setDeleteId] = useState<string | null>(null);
   const [saving, setSaving] = useState(false);
   const [errors, setErrors] = useState<Record<string, string>>({});
-  const [form, setForm] = useState({
-    mulher_id: "", tipo_ocorrencia: "", grau_risco: "baixo" as const,
-    status: "aberto" as const, data_ocorrencia: "", descricao: "",
+  const [form, setForm] = useState<{
+    mulher_id: string; tipo_ocorrencia: string;
+    grau_risco: "baixo" | "medio" | "alto" | "critico";
+    status: "aberto" | "em_acompanhamento" | "encerrado";
+    data_ocorrencia: string; descricao: string;
+  }>({
+    mulher_id: "", tipo_ocorrencia: "", grau_risco: "baixo",
+    status: "aberto", data_ocorrencia: "", descricao: "",
   });
 
   const load = async () => {
