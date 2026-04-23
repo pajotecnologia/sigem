@@ -14,7 +14,9 @@ import { Route as RelatoriosRouteImport } from './routes/relatorios'
 import { Route as ProgramasRouteImport } from './routes/programas'
 import { Route as MunicipiosRouteImport } from './routes/municipios'
 import { Route as MulheresRouteImport } from './routes/mulheres'
+import { Route as MensagensRouteImport } from './routes/mensagens'
 import { Route as DashboardRouteImport } from './routes/dashboard'
+import { Route as ConfiguracoesRouteImport } from './routes/configuracoes'
 import { Route as CasosRouteImport } from './routes/casos'
 import { Route as AuthRouteImport } from './routes/auth'
 import { Route as AtendimentosRouteImport } from './routes/atendimentos'
@@ -46,9 +48,19 @@ const MulheresRoute = MulheresRouteImport.update({
   path: '/mulheres',
   getParentRoute: () => rootRouteImport,
 } as any)
+const MensagensRoute = MensagensRouteImport.update({
+  id: '/mensagens',
+  path: '/mensagens',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const DashboardRoute = DashboardRouteImport.update({
   id: '/dashboard',
   path: '/dashboard',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ConfiguracoesRoute = ConfiguracoesRouteImport.update({
+  id: '/configuracoes',
+  path: '/configuracoes',
   getParentRoute: () => rootRouteImport,
 } as any)
 const CasosRoute = CasosRouteImport.update({
@@ -83,7 +95,9 @@ export interface FileRoutesByFullPath {
   '/atendimentos': typeof AtendimentosRoute
   '/auth': typeof AuthRoute
   '/casos': typeof CasosRoute
+  '/configuracoes': typeof ConfiguracoesRoute
   '/dashboard': typeof DashboardRoute
+  '/mensagens': typeof MensagensRoute
   '/mulheres': typeof MulheresRoute
   '/municipios': typeof MunicipiosRoute
   '/programas': typeof ProgramasRoute
@@ -96,7 +110,9 @@ export interface FileRoutesByTo {
   '/atendimentos': typeof AtendimentosRoute
   '/auth': typeof AuthRoute
   '/casos': typeof CasosRoute
+  '/configuracoes': typeof ConfiguracoesRoute
   '/dashboard': typeof DashboardRoute
+  '/mensagens': typeof MensagensRoute
   '/mulheres': typeof MulheresRoute
   '/municipios': typeof MunicipiosRoute
   '/programas': typeof ProgramasRoute
@@ -110,7 +126,9 @@ export interface FileRoutesById {
   '/atendimentos': typeof AtendimentosRoute
   '/auth': typeof AuthRoute
   '/casos': typeof CasosRoute
+  '/configuracoes': typeof ConfiguracoesRoute
   '/dashboard': typeof DashboardRoute
+  '/mensagens': typeof MensagensRoute
   '/mulheres': typeof MulheresRoute
   '/municipios': typeof MunicipiosRoute
   '/programas': typeof ProgramasRoute
@@ -125,7 +143,9 @@ export interface FileRouteTypes {
     | '/atendimentos'
     | '/auth'
     | '/casos'
+    | '/configuracoes'
     | '/dashboard'
+    | '/mensagens'
     | '/mulheres'
     | '/municipios'
     | '/programas'
@@ -138,7 +158,9 @@ export interface FileRouteTypes {
     | '/atendimentos'
     | '/auth'
     | '/casos'
+    | '/configuracoes'
     | '/dashboard'
+    | '/mensagens'
     | '/mulheres'
     | '/municipios'
     | '/programas'
@@ -151,7 +173,9 @@ export interface FileRouteTypes {
     | '/atendimentos'
     | '/auth'
     | '/casos'
+    | '/configuracoes'
     | '/dashboard'
+    | '/mensagens'
     | '/mulheres'
     | '/municipios'
     | '/programas'
@@ -165,7 +189,9 @@ export interface RootRouteChildren {
   AtendimentosRoute: typeof AtendimentosRoute
   AuthRoute: typeof AuthRoute
   CasosRoute: typeof CasosRoute
+  ConfiguracoesRoute: typeof ConfiguracoesRoute
   DashboardRoute: typeof DashboardRoute
+  MensagensRoute: typeof MensagensRoute
   MulheresRoute: typeof MulheresRoute
   MunicipiosRoute: typeof MunicipiosRoute
   ProgramasRoute: typeof ProgramasRoute
@@ -210,11 +236,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof MulheresRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/mensagens': {
+      id: '/mensagens'
+      path: '/mensagens'
+      fullPath: '/mensagens'
+      preLoaderRoute: typeof MensagensRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/dashboard': {
       id: '/dashboard'
       path: '/dashboard'
       fullPath: '/dashboard'
       preLoaderRoute: typeof DashboardRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/configuracoes': {
+      id: '/configuracoes'
+      path: '/configuracoes'
+      fullPath: '/configuracoes'
+      preLoaderRoute: typeof ConfiguracoesRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/casos': {
@@ -261,7 +301,9 @@ const rootRouteChildren: RootRouteChildren = {
   AtendimentosRoute: AtendimentosRoute,
   AuthRoute: AuthRoute,
   CasosRoute: CasosRoute,
+  ConfiguracoesRoute: ConfiguracoesRoute,
   DashboardRoute: DashboardRoute,
+  MensagensRoute: MensagensRoute,
   MulheresRoute: MulheresRoute,
   MunicipiosRoute: MunicipiosRoute,
   ProgramasRoute: ProgramasRoute,

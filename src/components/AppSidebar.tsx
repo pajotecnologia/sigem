@@ -10,6 +10,8 @@ import {
   Bell,
   ShieldCheck,
   LogOut,
+  MessageSquare,
+  Settings,
 } from "lucide-react";
 import {
   Sidebar,
@@ -32,6 +34,7 @@ const items = [
   { title: "Casos", url: "/casos", icon: FolderOpen },
   { title: "Atendimentos", url: "/atendimentos", icon: CalendarClock },
   { title: "Programas", url: "/programas", icon: HeartHandshake },
+  { title: "Mensagens", url: "/mensagens", icon: MessageSquare },
   { title: "Relatórios", url: "/relatorios", icon: BarChart3 },
   { title: "Alertas", url: "/alertas", icon: Bell },
 ];
@@ -39,6 +42,7 @@ const items = [
 const adminItems = [
   { title: "Municípios", url: "/municipios", icon: Building2 },
   { title: "Usuários", url: "/usuarios", icon: ShieldCheck },
+  { title: "Configurações", url: "/configuracoes", icon: Settings },
 ];
 
 export function AppSidebar() {
