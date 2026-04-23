@@ -10,7 +10,9 @@ import { Switch } from "@/components/ui/switch";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/contexts/AuthContext";
 import { toast } from "sonner";
-import { Save, TestTube2 } from "lucide-react";
+import { Save, TestTube2, ShieldCheck, Building2 } from "lucide-react";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Badge } from "@/components/ui/badge";
 
 export const Route = createFileRoute("/configuracoes")({
   component: () => (
