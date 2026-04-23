@@ -117,14 +117,55 @@ function Configuracoes() {
     }
   };
 
+  if (!canEdit) {
+    return (
+      <Card><CardContent className="py-12 text-center text-muted-foreground">
+        Acesso restrito a administradores Master ou Municipal.
+      </CardContent></CardContent></Card>
+    );
+  }
+
   if (loading) return <div className="text-muted-foreground">Carregando...</div>;
 
   return (
     <div className="space-y-6 max-w-3xl">
-      <div>
-        <h1 className="text-3xl font-bold">Configurações</h1>
-        <p className="text-muted-foreground">Integração Evolution API (WhatsApp)</p>
+      <div className="flex items-start justify-between gap-4 flex-wrap">
+        <div>
+          <h1 className="text-3xl font-bold">Configurações</h1>
+          <p className="text-muted-foreground">Integração Evolution API (WhatsApp)</p>
+        </div>
+        <Badge variant={isMaster ? "default" : "secondary"} className="gap-1">
+          {isMaster ? <ShieldCheck className="h-3 w-3" /> : <Building2 className="h-3 w-3" />}
+          {isMaster ? "Master — acesso total" : "Municipal — apenas seu município"}
+        </Badge>
       </div>
+
+      {isMaster && municipios.length > 0 && (
+        <Card>
+          <CardHeader className="pb-3">
+            <CardTitle className="text-base">Município</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <Select value={selectedMunId} onValueChange={setSelectedMunId}>
+              <SelectTrigger><SelectValue placeholder="Selecione" /></SelectTrigger>
+              <SelectContent>
+                {municipios.map((m) => (
+                  <SelectItem key={m.id} value={m.id}>{m.nome}</SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+            <p className="text-xs text-muted-foreground mt-2">
+              Como Master, você pode configurar a integração de qualquer município.
+            </p>
+          </CardContent>
+        </Card>
+      )}
+
+      {isMunicipal && !selectedMunId && (
+        <Card><CardContent className="py-6 text-sm text-muted-foreground">
+          Seu usuário não está vinculado a um município. Solicite ao administrador.
+        </CardContent></Card>
+      )}
 
       <Card>
         <CardHeader>
