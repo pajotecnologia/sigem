@@ -162,6 +162,164 @@ export type Database = {
           },
         ]
       }
+      evolution_config: {
+        Row: {
+          api_token: string
+          api_url: string
+          ativo: boolean
+          created_at: string
+          id: string
+          instance_name: string
+          municipio_id: string
+          updated_at: string
+          updated_by: string | null
+          webhook_url: string | null
+        }
+        Insert: {
+          api_token: string
+          api_url: string
+          ativo?: boolean
+          created_at?: string
+          id?: string
+          instance_name: string
+          municipio_id: string
+          updated_at?: string
+          updated_by?: string | null
+          webhook_url?: string | null
+        }
+        Update: {
+          api_token?: string
+          api_url?: string
+          ativo?: boolean
+          created_at?: string
+          id?: string
+          instance_name?: string
+          municipio_id?: string
+          updated_at?: string
+          updated_by?: string | null
+          webhook_url?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "evolution_config_municipio_id_fkey"
+            columns: ["municipio_id"]
+            isOneToOne: true
+            referencedRelation: "municipios"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      mensagens_enviadas: {
+        Row: {
+          agendada_para: string | null
+          categoria: Database["public"]["Enums"]["mensagem_categoria"]
+          conteudo: string
+          created_at: string
+          created_by: string | null
+          enviada_em: string | null
+          erro: string | null
+          id: string
+          mulher_id: string
+          municipio_id: string
+          status: Database["public"]["Enums"]["mensagem_status"]
+          template_id: string | null
+        }
+        Insert: {
+          agendada_para?: string | null
+          categoria?: Database["public"]["Enums"]["mensagem_categoria"]
+          conteudo: string
+          created_at?: string
+          created_by?: string | null
+          enviada_em?: string | null
+          erro?: string | null
+          id?: string
+          mulher_id: string
+          municipio_id: string
+          status?: Database["public"]["Enums"]["mensagem_status"]
+          template_id?: string | null
+        }
+        Update: {
+          agendada_para?: string | null
+          categoria?: Database["public"]["Enums"]["mensagem_categoria"]
+          conteudo?: string
+          created_at?: string
+          created_by?: string | null
+          enviada_em?: string | null
+          erro?: string | null
+          id?: string
+          mulher_id?: string
+          municipio_id?: string
+          status?: Database["public"]["Enums"]["mensagem_status"]
+          template_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "mensagens_enviadas_mulher_id_fkey"
+            columns: ["mulher_id"]
+            isOneToOne: false
+            referencedRelation: "mulheres"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "mensagens_enviadas_municipio_id_fkey"
+            columns: ["municipio_id"]
+            isOneToOne: false
+            referencedRelation: "municipios"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "mensagens_enviadas_template_id_fkey"
+            columns: ["template_id"]
+            isOneToOne: false
+            referencedRelation: "mensagens_templates"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      mensagens_templates: {
+        Row: {
+          ativo: boolean
+          categoria: Database["public"]["Enums"]["mensagem_categoria"]
+          conteudo: string
+          created_at: string
+          created_by: string | null
+          id: string
+          municipio_id: string | null
+          nome: string
+          updated_at: string
+        }
+        Insert: {
+          ativo?: boolean
+          categoria?: Database["public"]["Enums"]["mensagem_categoria"]
+          conteudo: string
+          created_at?: string
+          created_by?: string | null
+          id?: string
+          municipio_id?: string | null
+          nome: string
+          updated_at?: string
+        }
+        Update: {
+          ativo?: boolean
+          categoria?: Database["public"]["Enums"]["mensagem_categoria"]
+          conteudo?: string
+          created_at?: string
+          created_by?: string | null
+          id?: string
+          municipio_id?: string | null
+          nome?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "mensagens_templates_municipio_id_fkey"
+            columns: ["municipio_id"]
+            isOneToOne: false
+            referencedRelation: "municipios"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       mulheres: {
         Row: {
           bairro: string | null
@@ -430,6 +588,13 @@ export type Database = {
       app_role: "master" | "municipal" | "operacional" | "visualizacao"
       caso_risco: "baixo" | "medio" | "alto" | "critico"
       caso_status: "aberto" | "em_acompanhamento" | "encerrado"
+      mensagem_categoria:
+        | "boas_vindas"
+        | "acompanhamento"
+        | "lembrete"
+        | "aniversario"
+        | "outro"
+      mensagem_status: "pendente" | "enviada" | "falhou" | "lida" | "agendada"
       tipo_atendimento:
         | "social"
         | "juridico"
@@ -566,6 +731,14 @@ export const Constants = {
       app_role: ["master", "municipal", "operacional", "visualizacao"],
       caso_risco: ["baixo", "medio", "alto", "critico"],
       caso_status: ["aberto", "em_acompanhamento", "encerrado"],
+      mensagem_categoria: [
+        "boas_vindas",
+        "acompanhamento",
+        "lembrete",
+        "aniversario",
+        "outro",
+      ],
+      mensagem_status: ["pendente", "enviada", "falhou", "lida", "agendada"],
       tipo_atendimento: [
         "social",
         "juridico",
