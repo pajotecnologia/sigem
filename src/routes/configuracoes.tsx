@@ -121,7 +121,7 @@ function Configuracoes() {
     return (
       <Card><CardContent className="py-12 text-center text-muted-foreground">
         Acesso restrito a administradores Master ou Municipal.
-      </CardContent></CardContent></Card>
+      </CardContent></Card>
     );
   }
 
