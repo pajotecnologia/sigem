@@ -367,9 +367,9 @@ function EnviadasTab({
       mulher_id: form.mulher_id,
       municipio_id: mulher.municipio_id,
       template_id: form.template_id || null,
-      categoria: form.categoria,
+      categoria: form.categoria as "boas_vindas" | "acompanhamento" | "lembrete" | "aniversario" | "outro",
       conteudo: conteudoFinal,
-      status: agendada ? "agendada" : "pendente",
+      status: (agendada ? "agendada" : "pendente") as "agendada" | "pendente",
       agendada_para: agendada,
       created_by: userId,
     };
