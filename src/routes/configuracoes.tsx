@@ -33,10 +33,14 @@ type EvoConfig = {
 };
 
 function Configuracoes() {
-  const { hasAnyRole, user } = useAuth();
+  const { hasAnyRole, hasRole, user } = useAuth();
+  const isMaster = hasRole("master");
+  const isMunicipal = hasRole("municipal");
   const canEdit = hasAnyRole(["master", "municipal"]);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
+  const [municipios, setMunicipios] = useState<{ id: string; nome: string }[]>([]);
+  const [selectedMunId, setSelectedMunId] = useState<string>("");
   const [config, setConfig] = useState<EvoConfig>({
     municipio_id: "",
     api_url: "",
@@ -46,29 +50,41 @@ function Configuracoes() {
     ativo: true,
   });
 
+  // Load município list (master sees all; municipal sees only own)
   useEffect(() => {
     void (async () => {
       if (!user) return;
-      const { data: profile } = await supabase
-        .from("profiles")
-        .select("municipio_id")
-        .eq("id", user.id)
-        .single();
-      const munId = profile?.municipio_id;
-      if (!munId) {
-        setLoading(false);
-        return;
+      if (isMaster) {
+        const { data } = await supabase
+          .from("municipios").select("id, nome").eq("ativo", true).order("nome");
+        setMunicipios(data ?? []);
+        if (data && data.length > 0) setSelectedMunId((prev) => prev || data[0].id);
+        else setLoading(false);
+      } else {
+        const { data: profile } = await supabase
+          .from("profiles").select("municipio_id").eq("id", user.id).single();
+        if (profile?.municipio_id) setSelectedMunId(profile.municipio_id);
+        else setLoading(false);
       }
+    })();
+  }, [user, isMaster]);
+
+  // Load config for selected município
+  useEffect(() => {
+    if (!selectedMunId) return;
+    void (async () => {
+      setLoading(true);
       const { data } = await supabase
-        .from("evolution_config")
-        .select("*")
-        .eq("municipio_id", munId)
-        .maybeSingle();
+        .from("evolution_config").select("*").eq("municipio_id", selectedMunId).maybeSingle();
       if (data) setConfig(data as EvoConfig);
-      else setConfig((c) => ({ ...c, municipio_id: munId }));
+      else setConfig({
+        municipio_id: selectedMunId, api_url: "", api_token: "",
+        instance_name: "", webhook_url: "", ativo: true,
+      });
       setLoading(false);
     })();
-  }, [user]);
+  }, [selectedMunId]);
+
 
   const salvar = async () => {
     if (!config.municipio_id) {
