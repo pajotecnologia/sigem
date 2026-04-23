@@ -188,6 +188,7 @@ function TemplatesTab({
     }
     const payload = {
       ...form,
+      categoria: form.categoria as "boas_vindas" | "acompanhamento" | "lembrete" | "aniversario" | "outro",
       municipio_id: municipioId,
       created_by: userId,
     };
